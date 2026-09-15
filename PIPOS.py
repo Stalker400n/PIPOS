@@ -25,20 +25,16 @@ def removeTicker():
     print('ticker removed')
 
 
-printCurrentTickers()
-printCommands()
 while(True):
+    printCommands()
     user = input()
     if user == '0':
         break
     elif user == '1':
         addTicker()
-        printCommands()
     elif user == '2':
         printCurrentTickers()
         removeTicker()
-        printCommands()
     elif user == '3':
         printCurrentTickers()
-        printCommands()
 
