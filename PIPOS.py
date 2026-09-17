@@ -1,5 +1,4 @@
-
-# the TUI part of getting all the 25 or less that the users wants to specify
+import yfinance as yf
 
 tickers = []
 
@@ -27,7 +26,22 @@ def removeTicker():
 def printResults():
     print('results')
 
+def getData():
+    data = yf.download(tickers, start='2024-01-01', interval='1mo')
+    
+    _closing = data["Close"]
+
+    _returns = _closing.pct_change()
+    _returns = _returns.dropna()
+
+    return _returns
+
+
 def calculatePortfolios():
+    data = getData()
+
+    print(data)
+
     print('calculating')
 
 
@@ -35,6 +49,9 @@ def calculatePortfolios():
 while(True):
     printCommands()
     user = input()
+
+    # later change to match statement
+
     if user == '0':
         break
     elif user == '1':
