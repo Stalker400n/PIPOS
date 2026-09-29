@@ -49,19 +49,25 @@ def getData():
 def calculatePortfolios():
     data = getData()
 
-    _mean = data.mean()
+    _mean = data.mean().to_numpy()
 
-    _cov = data.cov()
+    _ones = np.ones_like(_mean)
 
-    _cov_inv = pd.DataFrame(np.linalg.pinv(_cov.values),_cov.columns, _cov.index)
+    _cov = data.cov().to_numpy()
 
+    _inv_cov = np.linalg.pinv(_cov)
+
+
+    
 
 # i need a list of ones the lenght of tickers
 
     print(_mean)
+    print(_ones)
     print(_cov)
 
-    print(_cov_inv.dot(_cov))
+    print(_inv_cov.dot(_cov))
+
 
     print('calculating')
 
