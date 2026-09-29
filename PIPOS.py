@@ -57,18 +57,18 @@ def calculatePortfolios():
 
     _inv_cov = np.linalg.pinv(_cov)
 
-
-    
-
-# i need a list of ones the lenght of tickers
+    _inv_cov_x_mean_T = _inv_cov @ _mean.reshape(-1, 1)
+    _inv_cov_x_ones_T = _inv_cov @ _ones.reshape(-1, 1)
 
     print(_mean)
     print(_ones)
     print(_cov)
 
     print(_inv_cov.dot(_cov))
-
-
+    
+    print(_inv_cov_x_mean_T)
+    print(_inv_cov_x_ones_T)
+    
     print('calculating')
 
 
