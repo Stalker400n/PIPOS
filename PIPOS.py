@@ -1,6 +1,8 @@
 
 from datetime import datetime
 import yfinance as yf
+import numpy as np
+import pandas as pd
 
 tickers = []
 
@@ -51,8 +53,15 @@ def calculatePortfolios():
 
     _cov = data.cov()
 
+    _cov_inv = pd.DataFrame(np.linalg.pinv(_cov.values),_cov.columns, _cov.index)
+
+
+# i need a list of ones the lenght of tickers
+
     print(_mean)
     print(_cov)
+
+    print(_cov_inv.dot(_cov))
 
     print('calculating')
 
