@@ -6,6 +6,9 @@ import pandas as pd
 
 tickers = []
 
+min_r = []
+max_S = []
+
 user = ''
 
 def printCurrentTickers():
@@ -49,26 +52,35 @@ def getData():
 def calculatePortfolios():
     data = getData()
 
-    _mean = data.mean().to_numpy()
+    _mu = data.mean().to_numpy()
 
-    _ones = np.ones_like(_mean)
+    _ones = np.ones_like(_mu)
 
     _cov = data.cov().to_numpy()
 
     _inv_cov = np.linalg.pinv(_cov)
 
-    _inv_cov_x_mean_T = _inv_cov @ _mean.reshape(-1, 1)
+    _inv_cov_x_mu_T = _inv_cov @ _mu.reshape(-1, 1)
     _inv_cov_x_ones_T = _inv_cov @ _ones.reshape(-1, 1)
 
-    print(_mean)
+    _ones_x_inv_cov_x_mu_T = _ones @ _inv_cov @ _mu.reshape(-1, 1)
+    _ones_x_inv_cov_x_ones_T = _ones @ _inv_cov @ _ones.reshape(-1, 1)
+
+    min_r = _inv_cov_x_ones_T / _ones_x_inv_cov_x_ones_T
+    max_S = _inv_cov_x_mu_T / _ones_x_inv_cov_x_mu_T
+
+    print(_mu)
     print(_ones)
     print(_cov)
 
     print(_inv_cov.dot(_cov))
     
-    print(_inv_cov_x_mean_T)
+    print(_inv_cov_x_mu_T)
     print(_inv_cov_x_ones_T)
     
+
+    print(min_r)
+    print(max_S)
     print('calculating')
 
 
