@@ -66,9 +66,12 @@ def calculatePortfolios():
     _ones_x_inv_cov_x_mu_T = _ones @ _inv_cov @ _mu.reshape(-1, 1)
     _ones_x_inv_cov_x_ones_T = _ones @ _inv_cov @ _ones.reshape(-1, 1)
 
-    min_r = _inv_cov_x_ones_T / _ones_x_inv_cov_x_ones_T
-    max_S = _inv_cov_x_mu_T / _ones_x_inv_cov_x_mu_T
+    _min_r = _inv_cov_x_ones_T / _ones_x_inv_cov_x_ones_T
+    _max_S = _inv_cov_x_mu_T / _ones_x_inv_cov_x_mu_T
 
+    min_r = pd.DataFrame(_min_r, index=data.columns)
+    max_S = pd.DataFrame(_max_S, index=data.columns)
+    
     print(_mu)
     print(_ones)
     print(_cov)
