@@ -6,8 +6,8 @@ import pandas as pd
 
 tickers = []
 
-min_r = []
-max_S = []
+min_r = pd.DataFrame()
+max_S = pd.DataFrame()
 
 user = ''
 
@@ -32,6 +32,11 @@ def removeTicker():
 
 def printResults():
     print('results')
+    print('min_r:')
+    print(min_r)
+    print('max_S:')
+    print(max_S)
+
 
 def getData():
     data = yf.download(tickers, start='2024-01-01', interval='1mo')
@@ -50,6 +55,11 @@ def getData():
 
 
 def calculatePortfolios():
+    global min_r
+    global max_S
+
+    print('Getting data...')
+
     data = getData()
 
     _mu = data.mean().to_numpy()
@@ -71,20 +81,10 @@ def calculatePortfolios():
 
     min_r = pd.DataFrame(_min_r, index=data.columns)
     max_S = pd.DataFrame(_max_S, index=data.columns)
-    
-    print(_mu)
-    print(_ones)
-    print(_cov)
 
-    print(_inv_cov.dot(_cov))
-    
-    print(_inv_cov_x_mu_T)
-    print(_inv_cov_x_ones_T)
-    
-
-    print(min_r)
-    print(max_S)
-    print('calculating')
+    print('calculating...')
+   
+    printResults()
 
 
 
