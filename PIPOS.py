@@ -1,4 +1,3 @@
-
 from datetime import datetime
 import yfinance as yf
 import numpy as np
@@ -54,6 +53,20 @@ def getData():
     return _returns
 
 
+def calculateMinR(_mu, _ones, _inv_cov):
+    _inv_cov_x_ones_T = _inv_cov @ _ones.reshape(-1, 1)
+
+    _ones_x_inv_cov_x_ones_T = _ones @ _inv_cov @ _ones.reshape(-1, 1)
+
+    return _inv_cov_x_ones_T / _ones_x_inv_cov_x_ones_T
+
+def calculateMaxS(_mu, _ones, _inv_cov):
+    _inv_cov_x_mu_T = _inv_cov @ _mu.reshape(-1, 1)
+
+    _ones_x_inv_cov_x_mu_T = _ones @ _inv_cov @ _mu.reshape(-1, 1)
+
+    return _inv_cov_x_mu_T / _ones_x_inv_cov_x_mu_T
+
 def calculatePortfolios():
     global min_r
     global max_S
@@ -70,20 +83,13 @@ def calculatePortfolios():
 
     _inv_cov = np.linalg.pinv(_cov)
 
-    _inv_cov_x_mu_T = _inv_cov @ _mu.reshape(-1, 1)
-    _inv_cov_x_ones_T = _inv_cov @ _ones.reshape(-1, 1)
-
-    _ones_x_inv_cov_x_mu_T = _ones @ _inv_cov @ _mu.reshape(-1, 1)
-    _ones_x_inv_cov_x_ones_T = _ones @ _inv_cov @ _ones.reshape(-1, 1)
-
-    _min_r = _inv_cov_x_ones_T / _ones_x_inv_cov_x_ones_T
-    _max_S = _inv_cov_x_mu_T / _ones_x_inv_cov_x_mu_T
-
+    _min_r = calculateMinR(_mu, _ones, _inv_cov)
+    _max_S = calculateMaxS(_mu, _ones, _inv_cov)
+    
     min_r = pd.DataFrame(_min_r, index=data.columns)
     max_S = pd.DataFrame(_max_S, index=data.columns)
 
     print('calculating...')
-   
     printResults()
 
 
