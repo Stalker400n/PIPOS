@@ -85,7 +85,7 @@ def calculatePortfolios():
 
     _min_r = calculateMinR(_mu, _ones, _inv_cov)
     _max_S = calculateMaxS(_mu, _ones, _inv_cov)
-    
+
     min_r = pd.DataFrame(_min_r, index=data.columns)
     max_S = pd.DataFrame(_max_S, index=data.columns)
 
@@ -98,18 +98,18 @@ while(True):
     printCommands()
     user = input()
 
-    # later change to match statement
+    match user:
+        case '0':
+            break
+        case '1':
+            addTicker()
+        case '2':
+            printCurrentTickers()
+            removeTicker()
+        case '3':
+            printCurrentTickers()
+        case '4':
+            calculatePortfolios()
+        case '5':
+            printResults()
 
-    if user == '0':
-        break
-    elif user == '1':
-        addTicker()
-    elif user == '2':
-        printCurrentTickers()
-        removeTicker()
-    elif user == '3':
-        printCurrentTickers()
-    elif user == '4':
-        calculatePortfolios()
-    elif user == '5':
-        printResults()
