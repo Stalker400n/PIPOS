@@ -1,5 +1,6 @@
 from datetime import datetime
 import yfinance as yf
+import math as math
 import numpy as np
 import pandas as pd
 
@@ -7,6 +8,13 @@ tickers = []
 
 min_r = pd.DataFrame()
 max_S = pd.DataFrame()
+
+
+min_r_risk = 0
+min_r_return = 0
+
+max_S_risk = 0
+max_S_return = 0
 
 user = ''
 
@@ -31,10 +39,21 @@ def removeTicker():
 
 def printResults():
     print('results')
+
     print('min_r:')
     print(min_r)
+    print('risk: ')
+    print(min_r_risk)
+    print('return: ')
+    print(min_r_return)
+
     print('max_S:')
     print(max_S)
+    print('risk: ')
+    print(max_S_risk)
+    print('return: ')
+    print(max_S_return)
+ 
 
 
 def getData():
@@ -67,9 +86,24 @@ def calculateMaxS(_mu, _ones, _inv_cov):
 
     return _inv_cov_x_mu_T / _ones_x_inv_cov_x_mu_T
 
+def calculateRisk(port, cov):
+    return np.sqrt(port.reshape(1, -1) @ cov @ port)
+
+def calculateReturn(port, mu):
+    return mu @ port
+
+
+
 def calculatePortfolios():
     global min_r
     global max_S
+
+    global min_r_risk
+    global min_r_return
+
+    global max_S_risk
+    global max_S_return
+
 
     print('Getting data...')
 
@@ -85,6 +119,12 @@ def calculatePortfolios():
 
     _min_r = calculateMinR(_mu, _ones, _inv_cov)
     _max_S = calculateMaxS(_mu, _ones, _inv_cov)
+
+    min_r_risk = calculateRisk(_min_r, _cov).item()
+    min_r_return = calculateReturn(_min_r, _mu).item()
+
+    max_S_risk = calculateRisk(_max_S, _cov).item()
+    max_S_return = calculateReturn(_max_S, _mu).item()
 
     min_r = pd.DataFrame(_min_r, index=data.columns)
     max_S = pd.DataFrame(_max_S, index=data.columns)
