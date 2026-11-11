@@ -23,13 +23,24 @@ def printCurrentTickers():
     print(tickers)
 
 def printCommands():
-    print(' 0. exit\n 1. add ticker\n 2. remove ticker\n 3. current tickers\n 4. calculate portfolios \n 5. show rezults')
+    print(' 0. exit\n 1. add ticker\n 2. add tickers\n 3. remove ticker\n 4. current tickers\n 5. calculate portfolios \n 6. show rezults')
 
 def addTicker():
     print('enter ticker to add:')
     user = input()
     tickers.append(user)
     print('ticker added')
+
+def addTickers():
+    print('enter tickers to add')
+    print('seperate the tickers with a space between them')
+
+    user = input()
+
+    # something
+
+    print('tickers added')
+
 
 def removeTicker():
     print('enter ticker to remove:')
@@ -144,12 +155,14 @@ while(True):
         case '1':
             addTicker()
         case '2':
-            printCurrentTickers()
-            removeTicker()
+            addTickers()
         case '3':
             printCurrentTickers()
+            removeTicker()
         case '4':
-            calculatePortfolios()
+            printCurrentTickers()
         case '5':
+            calculatePortfolios()
+        case '6':
             printResults()
 
