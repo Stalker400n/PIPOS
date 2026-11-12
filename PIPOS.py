@@ -37,7 +37,11 @@ def addTickers():
 
     user = input()
 
-    # something
+    user = user.split()
+
+    print(user)
+
+    tickers.extend(user)
 
     print('tickers added')
 
