@@ -1,3 +1,6 @@
+import UI as ui
+import calc as calc
+
 from datetime import datetime
 import yfinance as yf
 import math as math
@@ -9,67 +12,11 @@ tickers = []
 min_r = pd.DataFrame()
 max_S = pd.DataFrame()
 
-
 min_r_risk = 0
 min_r_return = 0
 
 max_S_risk = 0
 max_S_return = 0
-
-user = ''
-
-def printCurrentTickers():
-    print('Current specified tickers:')
-    print(tickers)
-
-def printCommands():
-    print(' 0. exit\n 1. add ticker\n 2. add tickers\n 3. remove ticker\n 4. current tickers\n 5. calculate portfolios \n 6. show rezults')
-
-def addTicker():
-    print('enter ticker to add:')
-    user = input()
-    tickers.append(user)
-    print('ticker added')
-
-def addTickers():
-    print('enter tickers to add')
-    print('seperate the tickers with a space between them')
-
-    user = input()
-
-    user = user.split()
-
-    print(user)
-
-    tickers.extend(user)
-
-    print('tickers added')
-
-
-def removeTicker():
-    print('enter ticker to remove:')
-    user = input()
-    tickers.remove(user)
-    print('ticker removed')
-
-def printResults():
-    print('results')
-
-    print('min_r:')
-    print(min_r)
-    print('risk: ')
-    print(min_r_risk)
-    print('return: ')
-    print(min_r_return)
-
-    print('max_S:')
-    print(max_S)
-    print('risk: ')
-    print(max_S_risk)
-    print('return: ')
-    print(max_S_return)
- 
-
 
 def getData():
     data = yf.download(tickers, start='2024-01-01', interval='1mo')
@@ -145,28 +92,27 @@ def calculatePortfolios():
     max_S = pd.DataFrame(_max_S, index=data.columns)
 
     print('calculating...')
-    printResults()
 
 
 
 while(True):
-    printCommands()
+    ui.printCommands()
     user = input()
 
     match user:
         case '0':
             break
         case '1':
-            addTicker()
+            tickers = ui.addTicker()
         case '2':
-            addTickers()
+            tickers = ui.addTickers()
         case '3':
-            printCurrentTickers()
-            removeTicker()
+            ui.printCurrentTickers()
+            tickers = ui.removeTicker()
         case '4':
-            printCurrentTickers()
+            ui.printCurrentTickers()
         case '5':
             calculatePortfolios()
         case '6':
-            printResults()
+            ui.printResults(min_r, min_r_risk, min_r_return, max_S, max_S_risk, max_S_return)
 
