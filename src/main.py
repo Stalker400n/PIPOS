@@ -1,6 +1,7 @@
 import UI as ui
 import calc as calc
 import external as ext
+import portfolio_manager as pm
 
 import math as math
 import numpy as np
