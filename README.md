@@ -10,10 +10,10 @@ A script that uses market data from yfinance with H. Markowitz's modern portfoli
 
 Currently you need to have yfinance in your env for it to work.
 
-If you have yfinance in your env then just do:
+If you have yfinance in your env then just do in the src folder:
 
 ```
-python3.14 PIPOS.py
+python3.14 main.py
 ```
 
 ## Purpose
