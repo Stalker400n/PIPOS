@@ -1,5 +1,6 @@
 import UI as ui
 import calc as calc
+import external as ext
 
 import math as math
 import numpy as np
@@ -28,7 +29,7 @@ def calculatePortfolios():
 
     print('Getting data...')
 
-    data = calc.getData(tickers)
+    data = ext.getData(tickers)
 
     print('calculating...')
 
