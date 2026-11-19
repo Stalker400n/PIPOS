@@ -1,21 +1,14 @@
-tickers = []
-
-user = ''
-
 def printCommands():
     print(' 0. exit\n 1. add ticker\n 2. add tickers\n 3. remove ticker\n 4. current tickers\n 5. calculate portfolios \n 6. show rezults')
 
-def printCurrentTickers():
+def printCurrentTickers(tickers):
     print('Current specified tickers:')
     print(tickers)
 
 def addTicker():
     print('enter ticker to add:')
     user = input()
-    tickers.append(user)
-    print('ticker added')
-
-    return tickers
+    return user
 
 def addTickers():
     print('enter tickers to add')
@@ -25,22 +18,14 @@ def addTickers():
 
     user = user.split()
 
-    print(user)
-
-    tickers.extend(user)
-
-    print('tickers added')
-
-    return tickers
+    return user
 
 
 def removeTicker():
     print('enter ticker to remove:')
     user = input()
-    tickers.remove(user)
-    print('ticker removed')
 
-    return tickers
+    return user
 
 def printResults(min_r, min_r_risk, min_r_return, max_S, max_S_risk, max_S_return):
     print('results')
