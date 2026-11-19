@@ -53,28 +53,29 @@ def calculatePortfolios():
     min_r = pd.DataFrame(_min_r, index=data.columns)
     max_S = pd.DataFrame(_max_S, index=data.columns)
 
+def main():
+    global tickers
 
+    while(True):
+        ui.printCommands()
+        user = input()
 
+        match user:
+            case '0':
+                break
+            case '1':
+                tickers = ui.addTicker()
+            case '2':
+                tickers = ui.addTickers()
+            case '3':
+                ui.printCurrentTickers()
+                tickers = ui.removeTicker()
+            case '4':
+                ui.printCurrentTickers()
+            case '5':
+                calculatePortfolios()
+            case '6':
+                ui.printResults(min_r, min_r_risk, min_r_return, max_S, max_S_risk, max_S_return)
 
-
-while(True):
-    ui.printCommands()
-    user = input()
-
-    match user:
-        case '0':
-            break
-        case '1':
-            tickers = ui.addTicker()
-        case '2':
-            tickers = ui.addTickers()
-        case '3':
-            ui.printCurrentTickers()
-            tickers = ui.removeTicker()
-        case '4':
-            ui.printCurrentTickers()
-        case '5':
-            calculatePortfolios()
-        case '6':
-            ui.printResults(min_r, min_r_risk, min_r_return, max_S, max_S_risk, max_S_return)
-
+if __name__ == '__main__':
+    main()
